@@ -1,0 +1,25 @@
+
+<h1>Contact</h1>
+  <p>Want to get in touch?</p>
+    <div class="row">
+      <div class="col-sm-6">
+        <ul>
+          <li>{{#link-to 'phone'}}Phone{{/link-to}}</li>
+          <li>{{#link-to 'email'}}Email{{/link-to}}</li>
+        </ul>
+
+        {{#if messageSent}}
+          <p>
+              Thank you. Your message has been sent.
+              Your confirmation number is {{confirmationNumber}}.
+          </p>
+        {{else}}
+          <p>Or, <a href='#' {{action 'sendMessage'}}>click here</a> to send a secret message.</p>
+        {{/if}}
+
+      </div>
+      <div class="col-sm-6">
+        {{outlet}}
+      </div>
+    </div>
+
