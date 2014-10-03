@@ -1,64 +1,35 @@
 class CommentsController < ApplicationController
+  respond_to :json
+
   def index
     @comments = Comment.all
-     respond_to do |format|
-        format.json { render :json => @comments }
-      end
+    render :json => @comments
   end
 
   def create
     @comment = Comment.new(comment_params)
 
     if @comment.save
-      respond_to do |format|
-        format.html do
-          flash[:notice] = "Comment created."
-          redirect_to root_path
-        end
-        format.json { render :json => @comment, :status => 201 }
-      end
+      respond_with @comment
     else
-      respond_to do |format|
-        format.html { redirect_to root_path }
-        format.json { render :json => @comment.errors, :status => 422 }
-      end
+      respond_with @comment.errors
     end
   end
 
-  def edit
-
-  end
-
-  def update
-    @comment = Comment.find(params[:id])
-    if @comment.update(params[:text])
-      respond_to do |format|
-        format.html do
-          flash[:notice] = "Comment updated."
-          redirect_to root_path
-        end
-        format.json { render :json => @comment, :status => 201 }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to root_path }
-        format.json { render :json => @comment.errors, :status => 422 }
-      end
-    end
-  end
+  # def update
+  #   @comment = Comment.find(params[:id])
+  #   if @comment.update(params[:text])
+  #     respond_with @comment
+  #   else
+  #     respond_with @comment.errors
+  #   end
+  # end
 
 
-  def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-    respond_to do |format|
-      format.html do
-        flash[:notice] = "Comment deleted."
-        redirect_to root_path
-      end
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @comment = Comment.find(params[:id])
+  #   respond_with @comment.destroy
+  # end
 
 private
 
